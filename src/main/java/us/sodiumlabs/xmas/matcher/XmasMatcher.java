@@ -86,6 +86,7 @@ public class XmasMatcher implements Matcher {
     }
 
     private boolean isExcluded(final String name, final String toCheck, final XmasPayload payload) {
+        logger.info( String.format( "Name: %s\tTo check %s", name, toCheck ) );
         return payload.getNameExclusions().getLastYears().get(name).contains(toCheck) ||
                         payload.getNameExclusions().getMisc().get(name).contains(toCheck);
     }

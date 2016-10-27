@@ -35,6 +35,8 @@ public class NamesParser implements InputParser<Names> {
 
         try(final BufferedReader br = new BufferedReader(new FileReader(inputFile))) {
             for(String line; (line = br.readLine()) != null; ) {
+                if( line.isEmpty() ) continue;
+
                 final String inputName = readName(line);
                 logger.info("Parsed input name {}", inputName);
 
