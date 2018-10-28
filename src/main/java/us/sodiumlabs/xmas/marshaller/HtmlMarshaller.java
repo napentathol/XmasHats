@@ -55,7 +55,7 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
         writer.write("<style>th, td { width: 20%;}</style>");
         writer.write("<style>th { text-align: left; padding-left: 10px; padding-top: 4px; padding-bottom: 4px; }</style>");
         writer.write("<style>td { padding-left: 15px; padding-top: 2px; padding-bottom: 2px; }</style>");
-        writer.write("<style>tr:nth-child(even) { background-color: #B23052; color: #000 }</style>");
+        writer.write("<style>tr:nth-child(even) { background-color: #B2303a; color: #000 }</style>");
         writer.write("<style>tr:nth-child(odd) { background-color: #228422; color: #111; }</style>");
         writer.write("<style>tr:hover { filter: brightness(150%) }</style>");
         writer.write("<style>html { background-color: #999; }</style>");
