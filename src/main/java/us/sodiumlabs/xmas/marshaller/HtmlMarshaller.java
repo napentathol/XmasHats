@@ -51,12 +51,13 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
 
     private void writeStyle(final Writer writer) throws IOException {
         writer.write("<link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>");
-        writer.write("<style>table { border-spacing: 0; font-family: 'Ubuntu', sans-serif; font-size: large; text-shadow: 1px 1px #888; }</style>");
+        writer.write("<style>table { border-spacing: 0; font-family: 'Ubuntu', sans-serif; font-size: xx-large; text-shadow: 1px 1px #888; }</style>");
         writer.write("<style>th, td { width: 20%;}</style>");
         writer.write("<style>th { text-align: left; padding-left: 10px; padding-top: 4px; padding-bottom: 4px; }</style>");
         writer.write("<style>td { padding-left: 15px; padding-top: 2px; padding-bottom: 2px; }</style>");
         writer.write("<style>tr:nth-child(even) { background-color: #B23052; color: #000 }</style>");
         writer.write("<style>tr:nth-child(odd) { background-color: #228422; color: #111; }</style>");
+        writer.write("<style>tr:hover { filter: brightness(150%) }</style>");
         writer.write("<style>html { background-color: #999; }</style>");
     }
 
