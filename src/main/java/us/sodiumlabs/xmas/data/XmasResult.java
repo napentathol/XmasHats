@@ -1,6 +1,6 @@
 package us.sodiumlabs.xmas.data;
 
-import lombok.Data;
+import org.immutables.value.Value;
 
 import java.util.List;
 import java.util.Map;
@@ -8,9 +8,14 @@ import java.util.Map;
 /**
  * @author Alex on 11/4/2015.
  */
-@Data
-public class XmasResult {
-    private final Map<String, String> matchMap;
+@SodiumStyle
+@Value.Immutable
+public abstract class XmasResult {
+    public abstract Map<String, String> getMatchMap();
 
-    private final Map<String, List<String>> thisYearExclusion;
+    public abstract Map<String, List<String>> getThisYearExclusion();
+
+    public static ImmutableXmasResult.Builder builder() {
+        return new ImmutableXmasResult.Builder();
+    }
 }

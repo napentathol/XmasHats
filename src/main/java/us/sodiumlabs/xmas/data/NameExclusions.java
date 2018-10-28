@@ -1,6 +1,6 @@
 package us.sodiumlabs.xmas.data;
 
-import lombok.Data;
+import org.immutables.value.Value;
 
 import java.util.List;
 import java.util.Map;
@@ -8,14 +8,14 @@ import java.util.Map;
 /**
  * @author Alex on 11/4/2015.
  */
-@Data
-public class NameExclusions {
-    private final Map<String, List<String>> lastYears;
+@SodiumStyle
+@Value.Immutable
+public abstract class NameExclusions {
+    public abstract Map<String, List<String>> getLastYears();
 
-    private final Map<String, List<String>> misc;
+    public abstract Map<String, List<String>> getMisc();
 
-    public NameExclusions(final Map<String, List<String>> lastYears, final Map<String, List<String>> misc) {
-        this.lastYears = lastYears;
-        this.misc = misc;
+    public static ImmutableNameExclusions.Builder builder() {
+        return new ImmutableNameExclusions.Builder();
     }
 }

@@ -29,7 +29,7 @@ public class ProhibitionMarshaller implements OutputMarshaller<XmasResult> {
     public boolean marshal(final XmasResult xmasResult, OrderMaintainer maintainer) {
         try(final CSVPrinter printer = new CSVPrinter(new FileWriter(file), CSVFormat.RFC4180)){
             for(Map.Entry<String, List<String>> results : xmasResult.getThisYearExclusion().entrySet()) {
-                final String[] recordValues = new String[results.getValue().size() + 1];
+                final String[] recordValues = new String[3];
 
                 recordValues[0] = results.getKey();
 

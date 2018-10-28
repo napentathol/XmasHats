@@ -42,14 +42,14 @@ public class NamesParser implements InputParser<Names> {
 
                 if(StringUtils.isNotEmpty(inputName)){
                     inputNames.add(inputName);
-                    maintainer.getNames().add(inputName);
+                    maintainer.addName(inputName);
                 }
             }
         } catch (final IOException fenex) {
             logger.fatal("Failed to parse input names!", fenex);
         }
 
-        return new Names(inputNames.toArray(new String[inputNames.size()]));
+        return new Names(inputNames.toArray(new String[0]));
     }
 
     private String readName(final String line) {

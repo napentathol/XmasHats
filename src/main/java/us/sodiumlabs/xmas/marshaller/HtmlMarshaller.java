@@ -1,7 +1,7 @@
 package us.sodiumlabs.xmas.marshaller;
 
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import us.sodiumlabs.xmas.data.OrderMaintainer;
@@ -89,7 +89,7 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
     private void writeCell(final Writer writer, final String value) throws IOException {
         writer.write("<td>");
         writer.write(StringEscapeUtils.escapeHtml4(
-                StringUtils.capitalize(value.toLowerCase()) ));
+                WordUtils.capitalize(value.toLowerCase()) ));
         writer.write("</td>");
     }
 }

@@ -20,7 +20,10 @@ public class XmasMatcher implements Matcher {
 
         final Map<String, List<String>> exclusions = createExclusions(payload, matches);
 
-        return new XmasResult(matches, exclusions);
+        return XmasResult.builder()
+            .withMatchMap(matches)
+            .withThisYearExclusion(exclusions)
+            .build();
     }
 
     private Map<String,List<String>> createExclusions(final XmasPayload payload, final Map<String, String> matches) {

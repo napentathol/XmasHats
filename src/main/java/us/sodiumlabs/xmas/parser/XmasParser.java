@@ -25,13 +25,15 @@ public class XmasParser implements InputParser<XmasPayload> {
 
     @Override
     public XmasPayload parse() {
-        final NameExclusions exclusions = new NameExclusions(
-                previousYearParser.parse(),
-                miscParser.parse()
-        );
-
+        final NameExclusions exclusions = NameExclusions.builder()
+            .withLastYears(previousYearParser.parse())
+            .withMisc(miscParser.parse())
+            .build();
         final Names names = namesInputParser.parse();
 
-        return new XmasPayload(names, exclusions);
+        return XmasPayload.builder()
+            .withNames(names)
+            .withNameExclusions(exclusions)
+            .build();
     }
 }

@@ -1,7 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'idea'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.11
 version = '1.0'
 mainClassName = 'us.sodiumlabs.xmas.XmasHats'
 
@@ -11,9 +12,18 @@ repositories {
 
 dependencies {
     testCompile group: 'junit',                     name: 'junit',          version: '4.11'
-    compile     group: 'org.projectlombok',         name: 'lombok',         version: '1.12.6'
+    compile     group: 'org.immutables',            name: 'value',          version: '2.7.1'
     compile     group: 'org.apache.logging.log4j',  name: 'log4j-api',      version: '2.4.1'
     compile     group: 'org.apache.logging.log4j',  name: 'log4j-core',     version: '2.4.1'
     compile     group: 'org.apache.commons',        name: 'commons-lang3',  version: '3.4'
     compile     group: 'org.apache.commons',        name: 'commons-csv',    version: '1.2'
+}
+
+sourceSets.main.java.srcDir file('generated')
+sourceSets.test.java.srcDir file('generated_tests')
+idea {
+    module {
+        generatedSourceDirs += file('generated')
+        generatedSourceDirs += file('generated_tests')
+    }
 }

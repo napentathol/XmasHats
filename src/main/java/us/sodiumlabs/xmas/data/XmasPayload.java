@@ -1,14 +1,17 @@
 package us.sodiumlabs.xmas.data;
 
-import lombok.Data;
-import us.sodiumlabs.xmas.data.NameExclusions;
-import us.sodiumlabs.xmas.data.Names;
+import org.immutables.value.Value;
 
 /**
  * @author Alex on 11/4/2015.
  */
-@Data
-public class XmasPayload {
-    private final Names names;
-    private final NameExclusions nameExclusions;
+@SodiumStyle
+@Value.Immutable
+public abstract class XmasPayload {
+    public abstract Names getNames();
+    public abstract NameExclusions getNameExclusions();
+
+    public static ImmutableXmasPayload.Builder builder() {
+        return new ImmutableXmasPayload.Builder();
+    }
 }
