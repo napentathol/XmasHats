@@ -18,12 +18,11 @@ dependencies {
     compile     group: 'org.apache.commons',        name: 'commons-lang3',  version: '3.4'
     compile     group: 'org.apache.commons',        name: 'commons-csv',    version: '1.2'
 }
-
-sourceSets.main.java.srcDir file('generated')
-sourceSets.test.java.srcDir file('generated_tests')
 idea {
     module {
+        sourceDirs          += file('generated')
         generatedSourceDirs += file('generated')
+        generatedSourceDirs += file('generated_tests')
         generatedSourceDirs += file('generated_tests')
     }
 }
