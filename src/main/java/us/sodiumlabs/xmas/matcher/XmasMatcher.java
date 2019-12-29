@@ -8,6 +8,8 @@ import us.sodiumlabs.xmas.data.XmasResult;
 
 import java.util.*;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author Alex on 11/4/2015.
  */
@@ -16,6 +18,7 @@ public class XmasMatcher implements Matcher {
 
     @Override
     public XmasResult match(final XmasPayload payload) {
+        requireNonNull(payload);
         final Map<String, String> matches = createMatches(payload);
 
         final Map<String, List<String>> exclusions = createExclusions(payload, matches);

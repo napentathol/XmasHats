@@ -11,6 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author Alex on 11/5/2015.
  */
@@ -18,8 +20,8 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
     private static final Logger logger = LogManager.getLogger(HtmlMarshaller.class);
     private final String file;
 
-    public HtmlMarshaller(String file) {
-        this.file = file;
+    public HtmlMarshaller(final String file) {
+        this.file = requireNonNull(file);
     }
 
     @Override

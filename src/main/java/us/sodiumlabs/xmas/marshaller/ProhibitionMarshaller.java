@@ -11,7 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Stream;
 
 /**
  * @author Alex on 11/5/2015.
@@ -26,22 +26,31 @@ public class ProhibitionMarshaller implements OutputMarshaller<XmasResult> {
     }
 
     @Override
-    public boolean marshal(final XmasResult xmasResult, OrderMaintainer maintainer) {
+    public boolean marshal(final XmasResult xmasResult, final OrderMaintainer maintainer) {
         try(final CSVPrinter printer = new CSVPrinter(new FileWriter(file), CSVFormat.RFC4180)){
-            for(Map.Entry<String, List<String>> results : xmasResult.getThisYearExclusion().entrySet()) {
+
+            final Stream<String> unorderedNames = xmasResult.getThisYearExclusion().keySet().stream()
+                .filter(e -> !maintainer.getNames().contains(e));
+
+            Stream.concat(maintainer.getNames().stream(), unorderedNames).forEach(name -> {
                 final String[] recordValues = new String[3];
 
-                recordValues[0] = results.getKey();
+                recordValues[0] = name;
+                final List<String> exclusions = xmasResult.getThisYearExclusion().get(name);
 
-                for(int i = 0; i < 2 && i < results.getValue().size(); i++) {
-                    recordValues[i + 1] = results.getValue().get(i);
+                for(int i = 0; i < 2 && i < exclusions.size(); i++) {
+                    recordValues[i + 1] = exclusions.get(i);
                 }
 
-                printer.printRecord(Arrays.asList(recordValues));
-            }
+                try {
+                    printer.printRecord(Arrays.asList(recordValues));
+                } catch(final IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
 
             printer.flush();
-        } catch (IOException e) {
+        } catch (final IOException | RuntimeException e) {
             logger.warn("Failed to log xmas result\n[{}]", xmasResult);
             logger.fatal(e);
 

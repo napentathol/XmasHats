@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author Alex on 11/4/2015.
  */
@@ -23,8 +25,8 @@ public class NamesParser implements InputParser<Names> {
     private final OrderMaintainer maintainer;
 
     public NamesParser(final String inputFile, final OrderMaintainer maintainer) {
-        this.inputFile = inputFile;
-        this.maintainer = maintainer;
+        this.inputFile = requireNonNull(inputFile);
+        this.maintainer = requireNonNull(maintainer);
     }
 
     @Override

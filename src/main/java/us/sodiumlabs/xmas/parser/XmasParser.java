@@ -7,6 +7,8 @@ import us.sodiumlabs.xmas.data.XmasPayload;
 import java.util.List;
 import java.util.Map;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author Alex on 11/4/2015.
  */
@@ -17,10 +19,13 @@ public class XmasParser implements InputParser<XmasPayload> {
 
     private final InputParser<Names> namesInputParser;
 
-    public XmasParser(InputParser<Map<String, List<String>>> previousYearParser, InputParser<Map<String, List<String>>> miscParser, InputParser<Names> namesInputParser) {
-        this.previousYearParser = previousYearParser;
-        this.miscParser = miscParser;
-        this.namesInputParser = namesInputParser;
+    public XmasParser(
+            final InputParser<Map<String, List<String>>> previousYearParser,
+            final InputParser<Map<String, List<String>>> miscParser,
+            final InputParser<Names> namesInputParser) {
+        this.previousYearParser = requireNonNull(previousYearParser);
+        this.miscParser = requireNonNull(miscParser);
+        this.namesInputParser = requireNonNull(namesInputParser);
     }
 
     @Override

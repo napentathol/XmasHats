@@ -11,7 +11,7 @@ import us.sodiumlabs.xmas.parser.NamesParser;
 import us.sodiumlabs.xmas.parser.ProhibitionParser;
 import us.sodiumlabs.xmas.parser.XmasParser;
 
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 /**
  * @author Alex on 11/4/2015.
@@ -21,7 +21,7 @@ public class XmasHats {
         new XmasHats().execute();
     }
 
-    public void execute() {
+    private void execute() {
         final OrderMaintainer maintainer = new OrderMaintainer();
 
         final XmasPayload payload = parseFiles(maintainer);
@@ -51,14 +51,18 @@ public class XmasHats {
     }
 
     private String previousYearFile() {
-        return "data/prohibited." + (Calendar.getInstance().get(Calendar.YEAR) - 1) + ".csv";
+        return "data/prohibited." + (thisYear() - 1) + ".csv";
     }
 
     private String thisYearFile() {
-        return "data/prohibited." + Calendar.getInstance().get(Calendar.YEAR) + ".csv";
+        return "data/prohibited." + thisYear() + ".csv";
     }
 
     private String thisYearHtml() {
-        return "data/xmas." + Calendar.getInstance().get(Calendar.YEAR) + ".html";
+        return "data/xmas." + thisYear() + ".html";
+    }
+
+    private int thisYear() {
+        return LocalDateTime.now().getYear();
     }
 }

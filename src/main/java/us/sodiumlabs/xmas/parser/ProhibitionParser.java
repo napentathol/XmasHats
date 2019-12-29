@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * @author Alex on 11/4/2015.
  */
@@ -22,7 +24,7 @@ public class ProhibitionParser implements InputParser<Map<String, List<String>>>
     private final String inputFile;
 
     public ProhibitionParser(final String inputFile) {
-        this.inputFile = inputFile;
+        this.inputFile = requireNonNull(inputFile);
     }
 
 
