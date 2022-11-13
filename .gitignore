@@ -1,7 +1,7 @@
 *.iml
 .idea/
 /build
-/data
+/data*
 /generated
 /out
 /.gradle
