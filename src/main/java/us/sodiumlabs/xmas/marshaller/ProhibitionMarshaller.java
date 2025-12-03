@@ -26,17 +26,17 @@ public class ProhibitionMarshaller implements OutputMarshaller<XmasResult> {
     }
 
     @Override
-    public boolean marshal(final XmasResult xmasResult, final OrderMaintainer maintainer) {
+    public boolean marshal(final XmasResult xmasResult, final OrderMaintainer maintainer, final int year) {
         try(final CSVPrinter printer = new CSVPrinter(new FileWriter(file), CSVFormat.RFC4180)){
 
-            final Stream<String> unorderedNames = xmasResult.getThisYearExclusion().keySet().stream()
+            final Stream<String> unorderedNames = xmasResult.thisYearExclusion().keySet().stream()
                 .filter(e -> !maintainer.getNames().contains(e));
 
             Stream.concat(maintainer.getNames().stream(), unorderedNames).forEach(name -> {
                 final String[] recordValues = new String[3];
 
                 recordValues[0] = name;
-                final List<String> exclusions = xmasResult.getThisYearExclusion().get(name);
+                final List<String> exclusions = xmasResult.thisYearExclusion().get(name);
 
                 for(int i = 0; i < 2 && i < exclusions.size(); i++) {
                     recordValues[i + 1] = exclusions.get(i);

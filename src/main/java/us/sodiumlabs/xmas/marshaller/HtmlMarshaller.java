@@ -10,6 +10,7 @@ import us.sodiumlabs.xmas.data.XmasResult;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import static java.util.Objects.requireNonNull;
 
@@ -19,15 +20,15 @@ import static java.util.Objects.requireNonNull;
 public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
     private static final Logger logger = LogManager.getLogger(HtmlMarshaller.class);
     private final String file;
-
+    private final String TITLE = "&#x1F384; Maurer Christmas Exchange &#x2603;";
     public HtmlMarshaller(final String file) {
         this.file = requireNonNull(file);
     }
 
     @Override
-    public boolean marshal(final XmasResult xmasResult, final OrderMaintainer maintainer) {
-        try(final Writer writer = new FileWriter(file)) {
-            writeHtml(writer, xmasResult, maintainer);
+    public boolean marshal(final XmasResult xmasResult, final OrderMaintainer maintainer, final int year) {
+        try(final Writer writer = new FileWriter(file, StandardCharsets.UTF_8)) {
+            writeHtml(writer, xmasResult, maintainer, year);
         } catch (final IOException ex) {
             logger.warn("Failed to write result to html [{}]", xmasResult);
             logger.fatal(ex);
@@ -38,10 +39,10 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
         return true;
     }
 
-    private void writeHtml(final Writer writer, final XmasResult result, final OrderMaintainer maintainer) throws IOException {
+    private void writeHtml(final Writer writer, final XmasResult result, final OrderMaintainer maintainer, final int year) throws IOException {
         writer.write("<html>");
         writeHead(writer);
-        writeBody(writer, result, maintainer);
+        writeBody(writer, result, maintainer, year);
         writer.write("</html>");
     }
 
@@ -52,6 +53,9 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
     }
 
     private void writeStyle(final Writer writer) throws IOException {
+        writer.write("<title>");
+        writer.write(TITLE);
+        writer.write("</title>");
         writer.write("<link href='https://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>");
         writer.write("<style>table { border-spacing: 0; font-family: 'Ubuntu', sans-serif; font-size: xx-large; text-shadow: 1px 1px #888; }</style>");
         writer.write("<style>th, td { width: 20%;}</style>");
@@ -63,8 +67,13 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
         writer.write("<style>html { background-color: #999; }</style>");
     }
 
-    private void writeBody(final Writer writer, final XmasResult result, final OrderMaintainer maintainer) throws IOException {
+    private void writeBody(final Writer writer, final XmasResult result, final OrderMaintainer maintainer, final int year) throws IOException {
         writer.write("<body>");
+        writer.write("<h1>");
+        writer.write(Integer.toString(year));
+        writer.write(" ");
+        writer.write(TITLE);
+        writer.write("</h1>");
         writeTable(writer, result, maintainer);
         writer.write("</body>");
     }
@@ -73,13 +82,13 @@ public class HtmlMarshaller implements OutputMarshaller<XmasResult> {
         writer.write("<table>");
         writeTableHead(writer);
         for(final String name : maintainer.getNames()) {
-            writeEntry(writer, name, result.getMatchMap().get(name));
+            writeEntry(writer, name, result.matchMap().get(name));
         }
         writer.write("</table>");
     }
 
     private void writeTableHead(final Writer writer) throws IOException {
-        writer.write("<tr><th>This person:</th><th>Gives to:</th></tr>");
+        writer.write("<tr><th>&#x1F385; This Person:</th><th>&#x1F936; Gives to:</th></tr>");
     }
 
     private void writeEntry(final Writer writer, final String name, final  String match) throws IOException {

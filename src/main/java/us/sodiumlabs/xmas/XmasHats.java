@@ -46,8 +46,8 @@ public class XmasHats {
         final OutputMarshaller<XmasResult> nextYearMarshaller = new ProhibitionMarshaller(thisYearFile());
         final OutputMarshaller<XmasResult> xmasMarshaller = new HtmlMarshaller(thisYearHtml());
 
-        nextYearMarshaller.marshal(result, maintainer);
-        xmasMarshaller.marshal(result, maintainer);
+        nextYearMarshaller.marshal(result, maintainer, thisYear());
+        xmasMarshaller.marshal(result, maintainer, thisYear());
     }
 
     private String previousYearFile() {

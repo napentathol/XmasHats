@@ -23,14 +23,11 @@ public class XmasMatcher implements Matcher {
 
         final Map<String, List<String>> exclusions = createExclusions(payload, matches);
 
-        return XmasResult.builder()
-            .withMatchMap(matches)
-            .withThisYearExclusion(exclusions)
-            .build();
+        return new XmasResult(matches, exclusions);
     }
 
     private Map<String,List<String>> createExclusions(final XmasPayload payload, final Map<String, String> matches) {
-        final Map<String, List<String>> exclusions = payload.getNameExclusions().getLastYears();
+        final Map<String, List<String>> exclusions = payload.nameExclusions().lastYears();
 
         logger.info("Calculating exclusions using payload\n{} and matches\n{}", payload, matches);
 
@@ -43,7 +40,7 @@ public class XmasMatcher implements Matcher {
     }
 
     private Map<String, String> createMatches(final XmasPayload payload) {
-        final String[] names = payload.getNames().getNames();
+        final String[] names = payload.names().getNames();
         final String[] matches = new String[names.length];
 
         for(final String toMatch : names) {
@@ -94,9 +91,9 @@ public class XmasMatcher implements Matcher {
     private boolean isExcluded(final String name, final String toCheck, final XmasPayload payload) {
         logger.info( String.format( "Name: %s\tTo check %s", name, toCheck ) );
 
-        final Collection<String> lastYear = Optional.ofNullable( payload.getNameExclusions().getLastYears().get(name) )
+        final Collection<String> lastYear = Optional.ofNullable( payload.nameExclusions().lastYears().get(name) )
             .orElseThrow( () -> new RuntimeException( String.format( "%s not in last year's exclusion list", name ) ) );
-        final Collection<String> miscExce = Optional.ofNullable( payload.getNameExclusions().getMisc().get(name) )
+        final Collection<String> miscExce = Optional.ofNullable( payload.nameExclusions().misc().get(name) )
             .orElseThrow( () -> new RuntimeException( String.format( "%s not in the misc exclusion list", name ) ) );
 
         return lastYear.contains(toCheck) || miscExce.contains(toCheck);
